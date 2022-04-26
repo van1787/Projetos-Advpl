@@ -8,10 +8,10 @@
 /*
 ===============================================================================================================================
 Programa----------: MFIS001
-Autor-------------: Alex Wallauer Ferreira
+Autor-------------: Vanderson Azevedo Vasconcelos
 Data da Criacao---: 16/04/2018
 ===============================================================================================================================
-DescriÁ„o---------: Rotina para gerar notas fiscais SF2
+Descri√ß√£o---------: Rotina para gerar notas fiscais SF2
 ===============================================================================================================================
 Retorno-----------: Nenhum
 ===============================================================================================================================
@@ -82,15 +82,15 @@ IF (upper(right(alltrim(MV_PAR01),4))) == ".CSV"
   	_cDados := FT_FREADLN()
 
   	If UPPER(alltrim(_cDados)) = UPPER("Tipo de Registro;N")///********************
-	   _lOK := .T. //Layout Padr„o
+	   _lOK := .T. //Layout Padr√£o
   	Endif
 	_nReg:= FT_FLASTREC()
 
-	//Fecha arquivo e prepara par‚metro com arquivo convertido
+	//Fecha arquivo e prepara par√¢metro com arquivo convertido
   	FT_FUSE()
 
 ELSE
-	Aviso(  "Arquivo inv·lido","O arquivo informado: "+Alltrim(MV_PAR01)+" n„o tem extenÁ„o [ .CSV ] "+;            
+	Aviso(  "Arquivo inv√°lido","O arquivo informado: "+Alltrim(MV_PAR01)+" n√£o tem exten√ß√£o [ .CSV ] "+;            
 		    "Favor informar uma arquivo no formato [ .CSV ].", {"Fechar"} )
 	Return .F.
 
@@ -98,9 +98,9 @@ EndIf
 
 If !_lOK
 
-	U_ITMSG("Arquivo com formato inv·lido" ,;
-	        "O arquivo "+_cArq+" informado para relizar a importaÁ„o n„o tem o layout correto. "+;
-			'O CSV deve ter as colunas iniciais "Tipo de Registro;N∫ NFS-e;Data Hora NFE;..."', {"Fechar"} )
+	U_ITMSG("Arquivo com formato inv√°lido" ,;
+	        "O arquivo "+_cArq+" informado para relizar a importa√ß√£o n√£o tem o layout correto. "+;
+			'O CSV deve ter as colunas iniciais "Tipo de Registro;N¬∫ NFS-e;Data Hora NFE;..."', {"Fechar"} )
 
 	Return .F.
 	
@@ -110,7 +110,7 @@ DBSELECTAREA("SE1")
 ProcRegua(len(_adados))
 
 _cArqTrab:= E_CriaTrab(,_aCpos,cAliasAux)
-//Cria Ìndice
+//Cria √≠ndice
 IndRegua(cAliasAux, _cArqTrab, "WKSTATUS+WK_CPO02", , , "Selecionando Registros...")
 
 _lTemNFs:=.F.
@@ -118,13 +118,13 @@ FWMSGRUN(,{|oproc| _lTemNFs := MFIS001L(_nreg,oproc,_cArq) } , "Aguarde...", "Le
 
 If !_lTemNFs
 
-	Aviso( "AtenÁ„o!" , "N„o foram encontrados registros v·lidos no arquivo!" , {"Fechar"} )
+	Aviso( "Aten√ß√£o!" , "N√£o foram encontrados registros v√°lidos no arquivo!" , {"Fechar"} )
 	Return .F.
 	
 EndIf
 
 (cAliasAux)->( DBGOTOP() )
-_cTexto:="Tipo de Registro;N∫ NFS-e;Data Hora NFE;CÛdigo de VerificaÁ„o da NFS-e;Tipo de RPS;SÈrie do RPS;N˙mero do RPS;Data do Fato Gerador;InscriÁ„o Municipal do Prestador;Indicador de CPF/CNPJ do Prestador;CPF/CNPJ do Prestador;Raz„o Social do Prestador;Tipo do EndereÁo do Prestador;EndereÁo do Prestador;N˙mero do EndereÁo do Prestador;Complemento do EndereÁo do Prestador;Bairro do Prestador;Cidade do Prestador;UF do Prestador;CEP do Prestador;Email do Prestador;OpÁ„o Pelo Simples;SituaÁ„o da Nota Fiscal;Data de Cancelamento;N∫ da Guia;Data de QuitaÁ„o da Guia Vinculada a Nota Fiscal;Valor dos ServiÁos;Valor das DeduÁıes;CÛdigo do ServiÁo Prestado na Nota Fiscal;AlÌquota;ISS devido;Valor do CrÈdito;ISS Retido;Indicador de CPF/CNPJ do Tomador;CPF/CNPJ do Tomador;InscriÁ„o Municipal do Tomador;InscriÁ„o Estadual do Tomador;Raz„o Social do Tomador;Tipo do EndereÁo do Tomador;EndereÁo do Tomador;N˙mero do EndereÁo do Tomador;Complemento do EndereÁo do Tomador;Bairro do Tomador;Cidade do Tomador;UF do Tomador;CEP do Tomador;Email do Tomador;DiscriminaÁ„o dos ServiÁos"
+_cTexto:="Tipo de Registro;N¬∫ NFS-e;Data Hora NFE;C√≥digo de Verifica√ß√£o da NFS-e;Tipo de RPS;S√©rie do RPS;N√∫mero do RPS;Data do Fato Gerador;Inscri√ß√£o Municipal do Prestador;Indicador de CPF/CNPJ do Prestador;CPF/CNPJ do Prestador;Raz√£o Social do Prestador;Tipo do Endere√ßo do Prestador;Endere√ßo do Prestador;N√∫mero do Endere√ßo do Prestador;Complemento do Endere√ßo do Prestador;Bairro do Prestador;Cidade do Prestador;UF do Prestador;CEP do Prestador;Email do Prestador;Op√ß√£o Pelo Simples;Situa√ß√£o da Nota Fiscal;Data de Cancelamento;N¬∫ da Guia;Data de Quita√ß√£o da Guia Vinculada a Nota Fiscal;Valor dos Servi√ßos;Valor das Dedu√ß√µes;C√≥digo do Servi√ßo Prestado na Nota Fiscal;Al√≠quota;ISS devido;Valor do Cr√©dito;ISS Retido;Indicador de CPF/CNPJ do Tomador;CPF/CNPJ do Tomador;Inscri√ß√£o Municipal do Tomador;Inscri√ß√£o Estadual do Tomador;Raz√£o Social do Tomador;Tipo do Endere√ßo do Tomador;Endere√ßo do Tomador;N√∫mero do Endere√ßo do Tomador;Complemento do Endere√ßo do Tomador;Bairro do Tomador;Cidade do Tomador;UF do Tomador;CEP do Tomador;Email do Tomador;Discrimina√ß√£o dos Servi√ßos"
 aCpos:=ITTXTARRAY(_cTexto,";",48)
 FOR I := 1 TO 47
 //                      TITULO               CAMPO      TIPO,PICTURE,,TAM,DEC
@@ -140,47 +140,47 @@ FOR I := 1 TO 47
     AADD( _aFields,{ aCpos[I] , "WK_CPO"+STRZERO(I,2),"C" ,""     ,0,LEN(cConteudo),0} )
 NEXT
 
-AADD( _aFields,{ "DiscriminaÁ„o dos ServiÁos" ,{|| LEFT((cAliasAux)->WK_DSCSER,50) },"C","",0,050,0} )
-AADD( _aFields,{ "ObservaÁıes / RejeiÁıes"    ,"WK_MOTIVO","C","",0,100,0} )
+AADD( _aFields,{ "Discrimina√ß√£o dos Servi√ßos" ,{|| LEFT((cAliasAux)->WK_DSCSER,50) },"C","",0,050,0} )
+AADD( _aFields,{ "Observa√ß√µes / Rejei√ß√µes"    ,"WK_MOTIVO","C","",0,100,0} )
 AADD( _aFields,{ "Erro do MSExecAuto()"       ,"WK_ERRO"  ,"C","",0,100,0} )
 
 AADD( _aFields,{ "Cod. Cliente"     ,"WK_CLICOD" ,"C",""                          ,0,LEN(SF2->F2_CLIENTE), 0 } )//CODIGO DO CLIENTE
 AADD( _aFields,{ "Loja Cliente"     ,"WK_CLOLOJ" ,"C",""                          ,0,LEN(SF2->F2_LOJA   ), 0 } )//LOJA DO CLIENTE
 AADD( _aFields,{ "Cod Municipio"    ,"WK_COD_MUN","C",""                          ,0,LEN(CC2->CC2_CODMUN), 0 } )//LOJA DO CLIENTE
-AADD( _aFields,{ "Valor do CrÈdito" ,"WK_VALCRE" ,"N",PesqPict('SF2',"F2_CREDNFE"),0,TamSx3("F2_CREDNFE")[1],TamSx3("F2_CREDNFE")[2] } )//Valor do CrÈdito
+AADD( _aFields,{ "Valor do Cr√©dito" ,"WK_VALCRE" ,"N",PesqPict('SF2',"F2_CREDNFE"),0,TamSx3("F2_CREDNFE")[1],TamSx3("F2_CREDNFE")[2] } )//Valor do Cr√©dito
 AADD( _aFields,{ "Cod. Produto"     ,"WK_CODITEM","C",""                          ,0,LEN(SD2->D2_COD    ), 0 } )//CODIGO DO PRODUTO
 AADD( _aFields,{ "TES"              ,"WK_TES"    ,"C",""                          ,0,LEN(SB1->B1_TS     ), 0 } )//CODIGO DA TES
-AADD( _aFields,{ "Valor ServiÁos"   ,"WK_SERVICO","N",PesqPict('SD2',"D2_TOTAL"  ),0,TamSx3("D2_TOTAL"  )[1],TamSx3("D2_TOTAL"  )[2] } )//Valor dos ServiÁos
-AADD( _aFields,{ "Valor DeduÁıes"   ,"WK_DEDUCO" ,"N",PesqPict('SD2',"D2_DESCON" ),0,TamSx3("D2_DESCON" )[1],TamSx3("D2_DESCON" )[2] } )//Valor das DeduÁıes
-AADD( _aFields,{ "Aliq ISS"         ,"WK_ALIQISS","N",PesqPict('SD2',"D2_ALIQISS"),0,TamSx3("D2_ALIQISS")[1],TamSx3("D2_ALIQISS")[2] } )//AlÌquota do ISS Recebe o valor da coluna ìAlÌquotaî da Planilha 
-AADD( _aFields,{ "Base ISS"         ,"WK_BASEISS","N",PesqPict('SD2',"D2_BASEISS"),0,TamSx3("D2_BASEISS")[1],TamSx3("D2_BASEISS")[2] } )//Base do ISS Recebe o valor da coluna ìValor dos ServiÁosî da Planilha ( - ) o valor da coluna ìValor das DeduÁıesî da Planilha 
+AADD( _aFields,{ "Valor Servi√ßos"   ,"WK_SERVICO","N",PesqPict('SD2',"D2_TOTAL"  ),0,TamSx3("D2_TOTAL"  )[1],TamSx3("D2_TOTAL"  )[2] } )//Valor dos Servi√ßos
+AADD( _aFields,{ "Valor Dedu√ß√µes"   ,"WK_DEDUCO" ,"N",PesqPict('SD2',"D2_DESCON" ),0,TamSx3("D2_DESCON" )[1],TamSx3("D2_DESCON" )[2] } )//Valor das Dedu√ß√µes
+AADD( _aFields,{ "Aliq ISS"         ,"WK_ALIQISS","N",PesqPict('SD2',"D2_ALIQISS"),0,TamSx3("D2_ALIQISS")[1],TamSx3("D2_ALIQISS")[2] } )//Al√≠quota do ISS Recebe o valor da coluna ‚ÄúAl√≠quota‚Äù da Planilha 
+AADD( _aFields,{ "Base ISS"         ,"WK_BASEISS","N",PesqPict('SD2',"D2_BASEISS"),0,TamSx3("D2_BASEISS")[1],TamSx3("D2_BASEISS")[2] } )//Base do ISS Recebe o valor da coluna ‚ÄúValor dos Servi√ßos‚Äù da Planilha ( - ) o valor da coluna ‚ÄúValor das Dedu√ß√µes‚Äù da Planilha 
 AADD( _aFields,{ "Valor ISS"        ,"WK_VALISS" ,"N",PesqPict('SD2',"D2_VALISS" ),0,TamSx3("D2_VALISS" )[1],TamSx3("D2_VALISS" )[2] } )//Valor do ISS
 
 _apesqui := {}
 AADD(_apesqui,{"Status", {{"Status","C",1,0,"Status","@!"}} } )
 
 oMarkBRW:=FWMarkBrowse():New()		   											  		// Inicializa o Browse
-oMarkBRW:SetAlias( cAliasAux )			   												// Define Alias que ser· a Base do Browse
-oMarkBRW:SetDescription( "ImportaÁ„o NFSe SP" )											// Define o titulo do browse de marcacao
-oMarkBRW:SetFieldMark( "MARCA" )														// Define o campo que sera utilizado para a marcaÁ„o
-//oMarkBRW:SetMenuDef( 'MFIS_01' )														// ForÁa a utilizaÁ„o do menu da rotina atual
-oMarkBRW:SetAllMark( {|| oMarkBRW:AllMark() } )											// AÁ„o do Clique no Header da Coluna de MarcaÁ„o
-oMarkBRW:SetValid({|| IF((cAliasAux)->WKSTATUS $ "A",.T.,.F.) })						// Indica o Code-Block executado para validar a marcaÁ„o/desmarcaÁ„o do registro
-//oMarkBRW:SetCustomMarkRec({|| IF((cAliasAux)->WKSTATUS $ "A,1",U_MFISMUN(),.F.)})		// Indica o Code-Block executado para validar a marcaÁ„o/desmarcaÁ„o do registro
+oMarkBRW:SetAlias( cAliasAux )			   												// Define Alias que ser√° a Base do Browse
+oMarkBRW:SetDescription( "Importa√ß√£o NFSe SP" )											// Define o titulo do browse de marcacao
+oMarkBRW:SetFieldMark( "MARCA" )														// Define o campo que sera utilizado para a marca√ß√£o
+//oMarkBRW:SetMenuDef( 'MFIS_01' )														// For√ßa a utiliza√ß√£o do menu da rotina atual
+oMarkBRW:SetAllMark( {|| oMarkBRW:AllMark() } )											// A√ß√£o do Clique no Header da Coluna de Marca√ß√£o
+oMarkBRW:SetValid({|| IF((cAliasAux)->WKSTATUS $ "A",.T.,.F.) })						// Indica o Code-Block executado para validar a marca√ß√£o/desmarca√ß√£o do registro
+//oMarkBRW:SetCustomMarkRec({|| IF((cAliasAux)->WKSTATUS $ "A,1",U_MFISMUN(),.F.)})		// Indica o Code-Block executado para validar a marca√ß√£o/desmarca√ß√£o do registro
 oMarkBRW:AddLegend( "(cAliasAux)->WKSTATUS = '1'","YELLOW","1-Pendente")                // Permite adicionar legendas no Browse
-oMarkBRW:AddLegend( "(cAliasAux)->WKSTATUS = 'A'","GREEN" ,"A-ImportaÁ„o Liberada")     // Permite adicionar legendas no Browse
+oMarkBRW:AddLegend( "(cAliasAux)->WKSTATUS = 'A'","GREEN" ,"A-Importa√ß√£o Liberada")     // Permite adicionar legendas no Browse
 oMarkBRW:AddLegend( "(cAliasAux)->WKSTATUS = 'P'","BLUE"  ,"P-NF Integrada com Sucesso")// Permite adicionar legendas no Browse
-oMarkBRW:AddLegend( "(cAliasAux)->WKSTATUS = 'R'","RED"   ,"R-ImportaÁ„o com RestriÁ„o")// Permite adicionar legendas no Browse
-oMarkBRW:AddLegend( "(cAliasAux)->WKSTATUS = 'S'","BLACK" ,"S-NF N√O foi integrada")    // Permite adicionar legendas no Browse
-oMarkBRW:SetFields( _aFields )													 		// Campos para exibiÁ„o
-oMarkBRW:SetSeek(.T., _apesqui)                                                         // Indica os campos que ser„o adicionados as colunas do Browse 
+oMarkBRW:AddLegend( "(cAliasAux)->WKSTATUS = 'R'","RED"   ,"R-Importa√ß√£o com Restri√ß√£o")// Permite adicionar legendas no Browse
+oMarkBRW:AddLegend( "(cAliasAux)->WKSTATUS = 'S'","BLACK" ,"S-NF N√ÉO foi integrada")    // Permite adicionar legendas no Browse
+oMarkBRW:SetFields( _aFields )													 		// Campos para exibi√ß√£o
+oMarkBRW:SetSeek(.T., _apesqui)                                                         // Indica os campos que ser√£o adicionados as colunas do Browse 
 oMarkBRW:SetSeek(.T.)
-oMarkBRW:AddButton( "Confirmar"      , {|| Processa( {|| U_MFIS001B()} ) } ,, 4 )		// Adiciona um bot„o na ·rea lateral do Browse
-oMarkBRW:AddButton( "Inclui Cod.Mun.", {||               U_MFISMUN() }     ,, 4 )		// Adiciona um bot„o na ·rea lateral do Browse
-oMarkBRW:AddButton( "Obs / Rejeicao" , {|| Aviso("ObservaÁıes / RejeiÁıes"   ,(cAliasAux)->WK_MOTIVO,{"Fechar"})} ,, 4 )// Adiciona um bot„o na ·rea lateral do Browse
-oMarkBRW:AddButton( "Erro MSExecAuto", {|| Aviso("Erro do MSExecAuto()"      ,(cAliasAux)->WK_ERRO  ,{"Fechar"})} ,, 4 )// Adiciona um bot„o na ·rea lateral do Browse
-oMarkBRW:AddButton( "Discr. Servicos", {|| Aviso("DiscriminaÁ„o dos ServiÁos",(cAliasAux)->WK_DSCSER,{"Fechar"})} ,, 4 )// Adiciona um bot„o na ·rea lateral do Browse
-//oMarkBRW:DisableConfig()                                                                // Desabilita a utilizaÁ„o das configuraÁıes do Browse 
+oMarkBRW:AddButton( "Confirmar"      , {|| Processa( {|| U_MFIS001B()} ) } ,, 4 )		// Adiciona um bot√£o na √°rea lateral do Browse
+oMarkBRW:AddButton( "Inclui Cod.Mun.", {||               U_MFISMUN() }     ,, 4 )		// Adiciona um bot√£o na √°rea lateral do Browse
+oMarkBRW:AddButton( "Obs / Rejeicao" , {|| Aviso("Observa√ß√µes / Rejei√ß√µes"   ,(cAliasAux)->WK_MOTIVO,{"Fechar"})} ,, 4 )// Adiciona um bot√£o na √°rea lateral do Browse
+oMarkBRW:AddButton( "Erro MSExecAuto", {|| Aviso("Erro do MSExecAuto()"      ,(cAliasAux)->WK_ERRO  ,{"Fechar"})} ,, 4 )// Adiciona um bot√£o na √°rea lateral do Browse
+oMarkBRW:AddButton( "Discr. Servicos", {|| Aviso("Discrimina√ß√£o dos Servi√ßos",(cAliasAux)->WK_DSCSER,{"Fechar"})} ,, 4 )// Adiciona um bot√£o na √°rea lateral do Browse
+//oMarkBRW:DisableConfig()                                                                // Desabilita a utiliza√ß√£o das configura√ß√µes do Browse 
 oMarkBRW:AllMark()                                                                      // Marca Todos
 oMarkBRW:Activate()																		// Ativacao da classe
 
@@ -203,65 +203,65 @@ Local _aCpos := {}
 AADD( _aCpos , { "WKSTATUS", "C" ,01, 0 } )
 aAdd( _aCpos , { "MARCA"   , "C" ,01, 0 } )
 aAdd( _aCpos , { "WK_CPO01", "C" ,06, 0 } )//Tipo de Registro;
-aAdd( _aCpos , { "WK_CPO02", "C" ,10, 0 } )//N∫ NFS-e;
+aAdd( _aCpos , { "WK_CPO02", "C" ,10, 0 } )//N¬∫ NFS-e;
 aAdd( _aCpos , { "WK_CPO03", "C" ,20, 0 } )//Data Hora NFE;
-aAdd( _aCpos , { "WK_CPO04", "C" ,10, 0 } )//CÛdigo de VerificaÁ„o da NFS-e;
+aAdd( _aCpos , { "WK_CPO04", "C" ,10, 0 } )//C√≥digo de Verifica√ß√£o da NFS-e;
 aAdd( _aCpos , { "WK_CPO05", "C" ,05, 0 } )//Tipo de RPS
-aAdd( _aCpos , { "WK_CPO06", "C" ,05, 0 } )//SÈrie do RPS
-aAdd( _aCpos , { "WK_CPO07", "C" ,05, 0 } )//N˙mero do RPS
+aAdd( _aCpos , { "WK_CPO06", "C" ,05, 0 } )//S√©rie do RPS
+aAdd( _aCpos , { "WK_CPO07", "C" ,05, 0 } )//N√∫mero do RPS
 aAdd( _aCpos , { "WK_CPO08", "C" ,15, 0 } )//Data do Fato Gerador
-aAdd( _aCpos , { "WK_CPO09", "C" ,15, 0 } )//InscriÁ„o Municipal do Prestador
+aAdd( _aCpos , { "WK_CPO09", "C" ,15, 0 } )//Inscri√ß√£o Municipal do Prestador
 aAdd( _aCpos , { "WK_CPO10", "C" ,03, 0 } )//Indicador de CPF/CNPJ do Prestador
 aAdd( _aCpos , { "WK_CPO11", "C" ,15, 0 } )//CPF/CNPJ do Prestador
-aAdd( _aCpos , { "WK_CPO12", "C" ,40, 0 } )//Raz„o Social do Prestador
-aAdd( _aCpos , { "WK_CPO13", "C" ,05, 0 } )//Tipo do EndereÁo do Prestador
-aAdd( _aCpos , { "WK_CPO14", "C" ,99, 0 } )//EndereÁo do Prestador
-aAdd( _aCpos , { "WK_CPO15", "C" ,15, 0 } )//N˙mero do EndereÁo do Prestador
-aAdd( _aCpos , { "WK_CPO16", "C" ,25, 0 } )//Complemento do EndereÁo do Prestador
+aAdd( _aCpos , { "WK_CPO12", "C" ,40, 0 } )//Raz√£o Social do Prestador
+aAdd( _aCpos , { "WK_CPO13", "C" ,05, 0 } )//Tipo do Endere√ßo do Prestador
+aAdd( _aCpos , { "WK_CPO14", "C" ,99, 0 } )//Endere√ßo do Prestador
+aAdd( _aCpos , { "WK_CPO15", "C" ,15, 0 } )//N√∫mero do Endere√ßo do Prestador
+aAdd( _aCpos , { "WK_CPO16", "C" ,25, 0 } )//Complemento do Endere√ßo do Prestador
 aAdd( _aCpos , { "WK_CPO17", "C" ,50, 0 } )//Bairro do Prestador
 aAdd( _aCpos , { "WK_CPO18", "C" ,50, 0 } )//Cidade do Prestador
 aAdd( _aCpos , { "WK_CPO19", "C" ,03, 0 } )//UF do Prestador
 aAdd( _aCpos , { "WK_CPO20", "C" ,10, 0 } )//CEP do Prestador
 aAdd( _aCpos , { "WK_CPO21", "C" ,50, 0 } )//Email do Prestador
-aAdd( _aCpos , { "WK_CPO22", "C" ,02, 0 } )//OpÁ„o Pelo Simples
-aAdd( _aCpos , { "WK_CPO23", "C" ,02, 0 } )//SituaÁ„o da Nota Fiscal
+aAdd( _aCpos , { "WK_CPO22", "C" ,02, 0 } )//Op√ß√£o Pelo Simples
+aAdd( _aCpos , { "WK_CPO23", "C" ,02, 0 } )//Situa√ß√£o da Nota Fiscal
 aAdd( _aCpos , { "WK_CPO24", "C" ,10, 0 } )//Data de Cancelamento
-aAdd( _aCpos , { "WK_CPO25", "C" ,10, 0 } )//N∫6da Guia
-aAdd( _aCpos , { "WK_CPO26", "C" ,10, 0 } )//Data de QuitaÁ„o da Guia Vinculada a Nota Fiscal
-aAdd( _aCpos , { "WK_CPO27", "C" ,20, 0 } )//Valor dos ServiÁos
-aAdd( _aCpos , { "WK_CPO28", "C" ,20, 0 } )//Valor das DeduÁıes
-aAdd( _aCpos , { "WK_CPO29", "C" ,06, 0 } )//CÛdigo do ServiÁo Prestado na Nota Fiscal
-aAdd( _aCpos , { "WK_CPO30", "C" ,10, 0 } )//AlÌquota
+aAdd( _aCpos , { "WK_CPO25", "C" ,10, 0 } )//N¬∫6da Guia
+aAdd( _aCpos , { "WK_CPO26", "C" ,10, 0 } )//Data de Quita√ß√£o da Guia Vinculada a Nota Fiscal
+aAdd( _aCpos , { "WK_CPO27", "C" ,20, 0 } )//Valor dos Servi√ßos
+aAdd( _aCpos , { "WK_CPO28", "C" ,20, 0 } )//Valor das Dedu√ß√µes
+aAdd( _aCpos , { "WK_CPO29", "C" ,06, 0 } )//C√≥digo do Servi√ßo Prestado na Nota Fiscal
+aAdd( _aCpos , { "WK_CPO30", "C" ,10, 0 } )//Al√≠quota
 aAdd( _aCpos , { "WK_CPO31", "C" ,15, 0 } )//ISS devido
-aAdd( _aCpos , { "WK_CPO32", "C" ,15, 0 } )//Valor do CrÈdito
+aAdd( _aCpos , { "WK_CPO32", "C" ,15, 0 } )//Valor do Cr√©dito
 aAdd( _aCpos , { "WK_CPO33", "C" ,15, 0 } )//ISS Retido
 aAdd( _aCpos , { "WK_CPO34", "C" ,02, 0 } )//Indicador de CPF/CNPJ do Tomador
 aAdd( _aCpos , { "WK_CPO35", "C" ,20, 0 } )//CPF/CNPJ do Tomador
-aAdd( _aCpos , { "WK_CPO36", "C" ,15, 0 } )//InscriÁ„o Municipal do Tomador
-aAdd( _aCpos , { "WK_CPO37", "C" ,15, 0 } )//InscriÁ„o Estadual do Tomador
-aAdd( _aCpos , { "WK_CPO38", "C" ,99, 0 } )//Raz„o Social do Tomador
-aAdd( _aCpos , { "WK_CPO39", "C" ,03, 0 } )//Tipo do EndereÁo do Tomador
-aAdd( _aCpos , { "WK_CPO40", "C" ,99, 0 } )//EndereÁo do Tomador
-aAdd( _aCpos , { "WK_CPO41", "C" ,10, 0 } )//N˙mero do EndereÁo do Tomador
-aAdd( _aCpos , { "WK_CPO42", "C" ,25, 0 } )//Complemento do EndereÁo do Tomador
+aAdd( _aCpos , { "WK_CPO36", "C" ,15, 0 } )//Inscri√ß√£o Municipal do Tomador
+aAdd( _aCpos , { "WK_CPO37", "C" ,15, 0 } )//Inscri√ß√£o Estadual do Tomador
+aAdd( _aCpos , { "WK_CPO38", "C" ,99, 0 } )//Raz√£o Social do Tomador
+aAdd( _aCpos , { "WK_CPO39", "C" ,03, 0 } )//Tipo do Endere√ßo do Tomador
+aAdd( _aCpos , { "WK_CPO40", "C" ,99, 0 } )//Endere√ßo do Tomador
+aAdd( _aCpos , { "WK_CPO41", "C" ,10, 0 } )//N√∫mero do Endere√ßo do Tomador
+aAdd( _aCpos , { "WK_CPO42", "C" ,25, 0 } )//Complemento do Endere√ßo do Tomador
 aAdd( _aCpos , { "WK_CPO43", "C" ,50, 0 } )//Bairro do Tomador
 aAdd( _aCpos , { "WK_CPO44", "C" ,50, 0 } )//Cidade do Tomador
 aAdd( _aCpos , { "WK_CPO45", "C" ,03, 0 } )//UF do Tomador
 aAdd( _aCpos , { "WK_CPO46", "C" ,10, 0 } )//CEP do Tomador
 aAdd( _aCpos , { "WK_CPO47", "C" ,50, 0 } )//Email do Tomador;
-AADD( _aCpos , { "WK_DSCSER","M" ,10, 0 } )//DiscriminaÁ„o dos ServiÁos
+AADD( _aCpos , { "WK_DSCSER","M" ,10, 0 } )//Discrimina√ß√£o dos Servi√ßos
 AADD( _aCpos , { "WK_MOTIVO","M" ,10, 0 } )//OBS
 AADD( _aCpos , { "WK_ERRO"  ,"M" ,10, 0 } )//ERROR.LOG
 AADD( _aCpos , { "WK_CLICOD","C" ,LEN(SF2->F2_CLIENTE), 0 } )//CODIGO DO CLIENTE
 AADD( _aCpos , { "WK_CLOLOJ","C" ,LEN(SF2->F2_LOJA   ), 0 } )//LOJA DO CLIENTE
-AADD( _aCpos , { "WK_VALCRE","N" ,TamSx3("F2_CREDNFE")[1],TamSx3("F2_CREDNFE")[2] } )//Valor do CrÈdito
+AADD( _aCpos , { "WK_VALCRE","N" ,TamSx3("F2_CREDNFE")[1],TamSx3("F2_CREDNFE")[2] } )//Valor do Cr√©dito
 AADD( _aCpos , { "WK_CODITEM","C",LEN(SD2->D2_COD), 0 } )//CODIGO DO PRODUTO
-AADD( _aCpos , { "WK_ALIQISS","N",TamSx3("D2_ALIQISS")[1],TamSx3("D2_ALIQISS")[2] } )//AlÌquota do ISS Recebe o valor da coluna ìAlÌquotaî da Planilha 
-AADD( _aCpos , { "WK_BASEISS","N",TamSx3("D2_BASEISS")[1],TamSx3("D2_BASEISS")[2] } )//Base do ISS Recebe o valor da coluna ìValor dos ServiÁosî da Planilha ( - ) o valor da coluna ìValor das DeduÁıesî da Planilha 
+AADD( _aCpos , { "WK_ALIQISS","N",TamSx3("D2_ALIQISS")[1],TamSx3("D2_ALIQISS")[2] } )//Al√≠quota do ISS Recebe o valor da coluna ‚ÄúAl√≠quota‚Äù da Planilha 
+AADD( _aCpos , { "WK_BASEISS","N",TamSx3("D2_BASEISS")[1],TamSx3("D2_BASEISS")[2] } )//Base do ISS Recebe o valor da coluna ‚ÄúValor dos Servi√ßos‚Äù da Planilha ( - ) o valor da coluna ‚ÄúValor das Dedu√ß√µes‚Äù da Planilha 
 AADD( _aCpos , { "WK_VALISS" ,"N",TamSx3("D2_VALISS" )[1],TamSx3("D2_VALISS" )[2] } )//Valor do ISS
-AADD( _aCpos , { "WK_DEDUCO" ,"N",TamSx3("D2_DESCON" )[1],TamSx3("D2_DESCON" )[2] } )//Valor das DeduÁıes
-AADD( _aCpos , { "WK_SERVICO","N",TamSx3("D2_TOTAL"  )[1],TamSx3("D2_TOTAL"  )[2] } )//Valor dos ServiÁos
-//AADD( _aCpos , { "WK_TOTAL"  ,"N",TamSx3("D2_TOTAL"  )[1],TamSx3("D2_TOTAL"  )[2] } )//Valor dos ServiÁos - Valor das DeduÁıes
+AADD( _aCpos , { "WK_DEDUCO" ,"N",TamSx3("D2_DESCON" )[1],TamSx3("D2_DESCON" )[2] } )//Valor das Dedu√ß√µes
+AADD( _aCpos , { "WK_SERVICO","N",TamSx3("D2_TOTAL"  )[1],TamSx3("D2_TOTAL"  )[2] } )//Valor dos Servi√ßos
+//AADD( _aCpos , { "WK_TOTAL"  ,"N",TamSx3("D2_TOTAL"  )[1],TamSx3("D2_TOTAL"  )[2] } )//Valor dos Servi√ßos - Valor das Dedu√ß√µes
 AADD( _aCpos , { "WK_COD_MUN","C",LEN(SA1->A1_COD_MUN), 0 } )//CODIGO DO MUNICIPIO
 AADD( _aCpos , { "WK_TES"    ,"C",LEN(SB1->B1_TS), 0 } )//CODIGO DA TES
     
@@ -306,7 +306,7 @@ DO While (cAliasAux)->( !EOF() )
 	   ELSE
 	      _nRegErro++
 	      (cAliasAux)->WKSTATUS :='S'
-	      (cAliasAux)->WK_MOTIVO:='VEJA O ERRO NO BOT√O "Erro do MSExecAuto()" / Nota N√O Gerada: '+_cDoc+" / Serie: "+_cSerie+CHR(13)+CHR(10)+(cAliasAux)->WK_MOTIVO
+	      (cAliasAux)->WK_MOTIVO:='VEJA O ERRO NO BOT√ÉO "Erro do MSExecAuto()" / Nota N√ÉO Gerada: '+_cDoc+" / Serie: "+_cSerie+CHR(13)+CHR(10)+(cAliasAux)->WK_MOTIVO
 	      (cAliasAux)->WK_ERRO  :=_cErro
 		  oMarkBRW:MARKREC()
 		  oMarkBRW:REFRESH()
@@ -326,9 +326,9 @@ EndDo
 _cMen:=ALLTRIM(STR(_nRegAtu))+" Nota(s) processada(s)."+CHR(13)+CHR(10)
 _cMen+=ALLTRIM(STR(_nRegSel))+" Nota(s) Integrada(s) com sucesso."+CHR(13)+CHR(10)
 _cMen+=ALLTRIM(STR(_nRegErro))+" Nota(s) com ERRO(S)."+CHR(13)+CHR(10)
-_cMen+=ALLTRIM(STR(_nRegNoMar))+" Nota(s) n„o Marcadas(s)."
+_cMen+=ALLTRIM(STR(_nRegNoMar))+" Nota(s) n√£o Marcadas(s)."
 
-Aviso( "ConcluÌdo!" , _cMen , {"Fechar"} )
+Aviso( "Conclu√≠do!" , _cMen , {"Fechar"} )
 
 oMarkBRW:GoTop()
 oMarkBRW:Refresh(.T.)
@@ -362,14 +362,14 @@ DO While (oFile:hasLine()) //!FT_FEOF()  //FACA ENQUANTO NAO FOR FIM DE ARQUIVO
 			
 	_cDados :=oFile:GetLine()//FT_FREADLN()//
 
-	//Verifica se È final de arquivo
+	//Verifica se √© final de arquivo
 	If UPPER(LEFT(ALLTRIM(_cDados),6)) = 'TOTAL;'
 		Exit
 	Endif 	
 
 	_aLinha :=ITTXTARRAY(_cDados,";")
 	
-	//Verifica se È linha v·lida
+	//Verifica se √© linha v√°lida
 	If LEN(_aLinha) < 48	
 	   If LEN(_aLinha) > 0 .AND. (cAliasAux)->(!EOF())
 	      (cAliasAux)->WK_MOTIVO:="Estouro de colunas: "+_cDados
@@ -392,17 +392,17 @@ DO While (oFile:hasLine()) //!FT_FEOF()  //FACA ENQUANTO NAO FOR FIM DE ARQUIVO
      NEXT
      cMotivo:=""
 
-     nValServico:=VAL(STRTRAN(STRTRAN((cAliasAux)->WK_CPO27,".",""),",","."))//Valor dos ServiÁos da Planilha
-     nValDeducao:=VAL(STRTRAN(STRTRAN((cAliasAux)->WK_CPO28,".",""),",","."))//Valor das DeduÁıes da Planilha 
-    (cAliasAux)->WK_DEDUCO :=nValDeducao//Valor das DeduÁıes
-    (cAliasAux)->WK_SERVICO:=nValServico//Valor dos ServiÁos
-//  (cAliasAux)->WK_TOTAL  :=(nValServico-nValDeducao) //Valor dos ServiÁos - Valor das DeduÁıes
-    (cAliasAux)->WK_BASEISS:=(nValServico-nValDeducao)//Base do ISS Recebe o valor da coluna ìValor dos ServiÁosî da Planilha ( - ) o valor da coluna ìValor das DeduÁıesî da Planilha 
-    (cAliasAux)->WK_VALCRE :=VAL(STRTRAN(STRTRAN((cAliasAux)->WK_CPO32,".",""),",","."))//Valor do CrÈdito
-    (cAliasAux)->WK_ALIQISS:=VAL(STRTRAN(STRTRAN((cAliasAux)->WK_CPO30,".",""),",","."))//AlÌquota do ISS Recebe o valor da coluna ìAlÌquotaî da Planilha 
-    (cAliasAux)->WK_VALISS :=VAL(STRTRAN(STRTRAN((cAliasAux)->WK_CPO31,".",""),",","."))//Recebe o valor da coluna ìISS devidoî da Planilha
-    (cAliasAux)->WK_CODITEM:=Posicione("CE1",1,xFilial("CE1")+ALLTRIM((cAliasAux)->WK_CPO29),"CE1_PROISS")//CÛdigo do ServiÁo Prestado na Nota Fiscal
-    IF EMPTY((cAliasAux)->WK_CODITEM)//CÛdigo do ServiÁo Prestado na Nota Fiscal
+     nValServico:=VAL(STRTRAN(STRTRAN((cAliasAux)->WK_CPO27,".",""),",","."))//Valor dos Servi√ßos da Planilha
+     nValDeducao:=VAL(STRTRAN(STRTRAN((cAliasAux)->WK_CPO28,".",""),",","."))//Valor das Dedu√ß√µes da Planilha 
+    (cAliasAux)->WK_DEDUCO :=nValDeducao//Valor das Dedu√ß√µes
+    (cAliasAux)->WK_SERVICO:=nValServico//Valor dos Servi√ßos
+//  (cAliasAux)->WK_TOTAL  :=(nValServico-nValDeducao) //Valor dos Servi√ßos - Valor das Dedu√ß√µes
+    (cAliasAux)->WK_BASEISS:=(nValServico-nValDeducao)//Base do ISS Recebe o valor da coluna ‚ÄúValor dos Servi√ßos‚Äù da Planilha ( - ) o valor da coluna ‚ÄúValor das Dedu√ß√µes‚Äù da Planilha 
+    (cAliasAux)->WK_VALCRE :=VAL(STRTRAN(STRTRAN((cAliasAux)->WK_CPO32,".",""),",","."))//Valor do Cr√©dito
+    (cAliasAux)->WK_ALIQISS:=VAL(STRTRAN(STRTRAN((cAliasAux)->WK_CPO30,".",""),",","."))//Al√≠quota do ISS Recebe o valor da coluna ‚ÄúAl√≠quota‚Äù da Planilha 
+    (cAliasAux)->WK_VALISS :=VAL(STRTRAN(STRTRAN((cAliasAux)->WK_CPO31,".",""),",","."))//Recebe o valor da coluna ‚ÄúISS devido‚Äù da Planilha
+    (cAliasAux)->WK_CODITEM:=Posicione("CE1",1,xFilial("CE1")+ALLTRIM((cAliasAux)->WK_CPO29),"CE1_PROISS")//C√≥digo do Servi√ßo Prestado na Nota Fiscal
+    IF EMPTY((cAliasAux)->WK_CODITEM)//C√≥digo do Servi√ßo Prestado na Nota Fiscal
 	   (cAliasAux)->WKSTATUS :="R"
        cMotivo+="Codigo ISS sem amarracao de Produto"+CHR(13)+CHR(10)
     ENDIF   
@@ -412,9 +412,9 @@ DO While (oFile:hasLine()) //!FT_FEOF()  //FACA ENQUANTO NAO FOR FIM DE ARQUIVO
        cMotivo+="Tipo de cliente Invalido ou Inexistente: "+(cAliasAux)->WK_CPO34+CHR(13)+CHR(10)
     ENDIF   
 
-    IF ALLTRIM((cAliasAux)->WK_CPO23) <> 'T'//SituaÁ„o da Nota Fiscal
+    IF ALLTRIM((cAliasAux)->WK_CPO23) <> 'T'//Situa√ß√£o da Nota Fiscal
 	   (cAliasAux)->WKSTATUS :="R"
-       cMotivo+="SituaÁ„o do Documento Inv·lida: "+(cAliasAux)->WK_CPO23+CHR(13)+CHR(10)
+       cMotivo+="Situa√ß√£o do Documento Inv√°lida: "+(cAliasAux)->WK_CPO23+CHR(13)+CHR(10)
     ENDIF   
 
     cCNPJ:=STRTRAN(STRTRAN(STRTRAN( ALLTRIM((cAliasAux)->WK_CPO11) ,".",""),"/",""),"-","")//CPF/CNPJ do Tomador
@@ -426,7 +426,7 @@ DO While (oFile:hasLine()) //!FT_FEOF()  //FACA ENQUANTO NAO FOR FIM DE ARQUIVO
 //  IF SF2->(DBSEEK(xFilial()+ALLTRIM((cAliasAux)->WK_CPO02)))
     IF SF2->(DBSEEK(xFilial()+_cDoc+_cSerie))
 	   (cAliasAux)->WKSTATUS :="R"
-       cMotivo+="Nota j· existe no sistema: "+xFilial("SF2")+" "+ALLTRIM((cAliasAux)->WK_CPO02)+CHR(13)+CHR(10)
+       cMotivo+="Nota j√° existe no sistema: "+xFilial("SF2")+" "+ALLTRIM((cAliasAux)->WK_CPO02)+CHR(13)+CHR(10)
     ENDIF   
 
     _cTes1 := Posicione("SB1",1,xFilial("SB1")+(cAliasAux)->WK_CODITEM,"B1_TS")
@@ -444,17 +444,17 @@ DO While (oFile:hasLine()) //!FT_FEOF()  //FACA ENQUANTO NAO FOR FIM DE ARQUIVO
     IF !EMPTY(cCNPJ) .AND. SA1->(DBSEEK(xFilial()+ALLTRIM(cCNPJ)))
        (cAliasAux)->WK_CLICOD :=SA1->A1_COD
        (cAliasAux)->WK_CLOLOJ :=SA1->A1_LOJA
-       (cAliasAux)->WK_CPO36  :=TRANS(SA1->A1_INSCRM,PesqPict('SA1',"A1_INSCRM"))//InscriÁ„o Municipal do Tomador
-       (cAliasAux)->WK_CPO37  :=TRANS(SA1->A1_INSCR ,PesqPict('SA1',"A1_INSCR")) //InscriÁ„o Estadual do Tomador
+       (cAliasAux)->WK_CPO36  :=TRANS(SA1->A1_INSCRM,PesqPict('SA1',"A1_INSCRM"))//Inscri√ß√£o Municipal do Tomador
+       (cAliasAux)->WK_CPO37  :=TRANS(SA1->A1_INSCR ,PesqPict('SA1',"A1_INSCR")) //Inscri√ß√£o Estadual do Tomador
        (cAliasAux)->WK_COD_MUN:=SA1->A1_COD_MUN//CODIGO DO MUNICIPIO
     ELSEIF (cAliasAux)->WKSTATUS <> "R"
-       //1-CPF/CNPJ do Tomador 2-Raz„o Social do Tomador 3-EndereÁo do Tomador 4-Cidade do Tomador 5-UF do Tomador 6-CEP do Tomador
+       //1-CPF/CNPJ do Tomador 2-Raz√£o Social do Tomador 3-Endere√ßo do Tomador 4-Cidade do Tomador 5-UF do Tomador 6-CEP do Tomador
        IF EMPTY(cCNPJ)                 .OR. EMPTY((cAliasAux)->WK_CPO38) .OR. EMPTY((cAliasAux)->WK_CPO40) .OR.;
           EMPTY((cAliasAux)->WK_CPO44) .OR. EMPTY((cAliasAux)->WK_CPO45) .OR. EMPTY((cAliasAux)->WK_CPO46)
    	      (cAliasAux)->WKSTATUS  :="R"
-          cMotivo+="Dados do Cliente Inv·lidos ou incompletos"+CHR(13)+CHR(10)
+          cMotivo+="Dados do Cliente Inv√°lidos ou incompletos"+CHR(13)+CHR(10)
        ELSE
-          //Para trazer o conte˙do do campo A1_cod_mun, vocÍ busca na CC2_UF o valor da COLUNA UF do TOMADOR + o valor da CC2_MUN da coluna CIDADE do tomador, mais quando pegar o valor desta coluna tem que transformar ele, tirando caracter especial e transformando tudo em mai˙sculo... para compar certinho com a CC2 achando a referencia pega o conte˙do do campo CC2_CODMUN       
+          //Para trazer o conte√∫do do campo A1_cod_mun, voc√™ busca na CC2_UF o valor da COLUNA UF do TOMADOR + o valor da CC2_MUN da coluna CIDADE do tomador, mais quando pegar o valor desta coluna tem que transformar ele, tirando caracter especial e transformando tudo em mai√∫sculo... para compar certinho com a CC2 achando a referencia pega o conte√∫do do campo CC2_CODMUN       
           _cLugar:=LEFT((cAliasAux)->WK_CPO45,2)+MFISLimpa((cAliasAux)->WK_CPO44)
           IF !EMPTY(_cLugar) .AND. CC2->(DBSEEK(xFilial()+_cLugar))
 //           cMotivo+="REVISAR CADASTRO DO CLIENTE APOS IMPORTACAO DA NOTA"+CHR(13)+CHR(10)
@@ -477,18 +477,18 @@ DO While (oFile:hasLine()) //!FT_FEOF()  //FACA ENQUANTO NAO FOR FIM DE ARQUIVO
 Enddo
 
 oFile:Close()
-//Fecha arquivo e prepara par‚metro com arquivo convertido
+//Fecha arquivo e prepara par√¢metro com arquivo convertido
 //FT_FUSE()	
 Return lTemNFE
 /*
 ===============================================================================================================================
 Programa----------: ITTXTARRAY
 ===============================================================================================================================
-DescriÁ„o---------: Convertge o Texto recebido como par‚metro em Array
+Descri√ß√£o---------: Convertge o Texto recebido como par√¢metro em Array
 ===============================================================================================================================
 Parametros--------: _cTexto     = Texto a ser convertido.
                     _cSeparador = Caracter utilizado como separador de colunas. 
-                    _nNrPosicArray = Numero m·ximo de posiÁıes do Array,
+                    _nNrPosicArray = Numero m√°ximo de posi√ß√µes do Array,
 ===============================================================================================================================
 Retorno-----------: _aRet = Retorna o campo _cTexto no formato de Array.
 ===============================================================================================================================
@@ -547,7 +547,7 @@ Begin Sequence
 	   
 	   Aadd(_aRet,_cColuna)
 	   
-	   If Len(_aRet) == _nNrPosicArray  // Numero m·ximo de colunas da planilha gravada em CSV.
+	   If Len(_aRet) == _nNrPosicArray  // Numero m√°ximo de colunas da planilha gravada em CSV.
 	      _lWhile := .F.  //Exit
 	   EndIf
 	   
@@ -577,7 +577,7 @@ _cDoc  := STRZERO(VAL(ALLTRIM((cAliasAux)->WK_CPO02)),Len(SD2->D2_DOC))
 
 SF2->(DBSETORDER(1))
 IF SF2->(DBSEEK(xFilial()+_cDoc+_cSerie))
-   _cErro:="Nota j· existe no sistema: "+xFilial("SF2")+" "+ALLTRIM((cAliasAux)->WK_CPO02)+CHR(13)+CHR(10)
+   _cErro:="Nota j√° existe no sistema: "+xFilial("SF2")+" "+ALLTRIM((cAliasAux)->WK_CPO02)+CHR(13)+CHR(10)
    RETURN .F.
 ENDIF   
 
@@ -586,8 +586,8 @@ SA1->(DBSETORDER(3))
 IF !EMPTY(cCNPJ) .AND. SA1->(DBSEEK(xFilial()+ALLTRIM(cCNPJ)))
    (cAliasAux)->WK_CLICOD :=SA1->A1_COD
    (cAliasAux)->WK_CLOLOJ :=SA1->A1_LOJA
-   (cAliasAux)->WK_CPO36  :=TRANS(SA1->A1_INSCRM,PesqPict('SA1',"A1_INSCRM"))//InscriÁ„o Municipal do Tomador
-   (cAliasAux)->WK_CPO37  :=TRANS(SA1->A1_INSCR ,PesqPict('SA1',"A1_INSCR")) //InscriÁ„o Estadual do Tomador
+   (cAliasAux)->WK_CPO36  :=TRANS(SA1->A1_INSCRM,PesqPict('SA1',"A1_INSCRM"))//Inscri√ß√£o Municipal do Tomador
+   (cAliasAux)->WK_CPO37  :=TRANS(SA1->A1_INSCR ,PesqPict('SA1',"A1_INSCR")) //Inscri√ß√£o Estadual do Tomador
    (cAliasAux)->WK_COD_MUN:=SA1->A1_COD_MUN//CODIGO DO MUNICIPIO
 ENDIF   
 
@@ -606,30 +606,30 @@ AAdd( aCab, { "F2_MOEDA"  , 1		            	   	, Nil } )
 //AAdd( aCab, { "F2_TXMOEDA", 1		               		, Nil } ) 
 AAdd( aCab, { "F2_FORMUL" , "S"		   		           	, Nil } ) 
 AAdd( aCab, { "F2_TIPODOC", ""			     			, Nil } ) 
-AAdd( aCab, { "F2_NFELETR", ALLTRIM((cAliasAux)->WK_CPO02)         , Nil } )//N∫ NFS-e
-AAdd( aCab, { "F2_CODNFE" , ALLTRIM((cAliasAux)->WK_CPO04)         , Nil } )//CÛdigo de VerificaÁ„o da NFS-e
+AAdd( aCab, { "F2_NFELETR", ALLTRIM((cAliasAux)->WK_CPO02)         , Nil } )//N¬∫ NFS-e
+AAdd( aCab, { "F2_CODNFE" , ALLTRIM((cAliasAux)->WK_CPO04)         , Nil } )//C√≥digo de Verifica√ß√£o da NFS-e
 AAdd( aCab, { "F2_EMINFE" , CTOD(LEFT((cAliasAux)->WK_CPO03,10))   , Nil } )//Data Hora NFE
 AAdd( aCab, { "F2_HORNFE" , RIGHT(ALLTRIM((cAliasAux)->WK_CPO03),5), Nil } )//Data Hora NFE
-AAdd( aCab, { "F2_CREDNFE", (cAliasAux)->WK_VALCRE                 , Nil } )//Valor do CrÈdito
-AAdd( aCab, { "F2_MENNOTA", ALLTRIM((cAliasAux)->WK_DSCSER)        , Nil } )//DiscriminaÁ„o dos ServiÁos
+AAdd( aCab, { "F2_CREDNFE", (cAliasAux)->WK_VALCRE                 , Nil } )//Valor do Cr√©dito
+AAdd( aCab, { "F2_MENNOTA", ALLTRIM((cAliasAux)->WK_DSCSER)        , Nil } )//Discrimina√ß√£o dos Servi√ßos
 AAdd( aCab, { "F2_DESCONT",0})
 AAdd( aCab, { "F2_FRETE"  ,0})
 AAdd( aCab, { "F2_SEGURO" ,0})
 AAdd( aCab, { "F2_DESPESA",0})
 
 aLinha := {}				
-AAdd( aLinha, { "D2_COD"    , (cAliasAux)->WK_CODITEM, Nil } )//CÛdigo do ServiÁo Prestado na Nota Fiscal
+AAdd( aLinha, { "D2_COD"    , (cAliasAux)->WK_CODITEM, Nil } )//C√≥digo do Servi√ßo Prestado na Nota Fiscal
 AAdd( aLinha, { "D2_QUANT"  , 1 					 , Nil } )					
-//AAdd( aLinha, { "D2_PRCVEN" , (cAliasAux)->WK_SERVICO, Nil } )//Valor dos ServiÁos			
-AAdd( aLinha, { "D2_PRCVEN" , (cAliasAux)->WK_BASEISS, Nil } )  //Valor dos ServiÁos			
-//AAdd( aLinha, { "D2_DESCON" , (cAliasAux)->WK_DEDUCO , Nil } )  //Valor das DeduÁıes			
-//AAdd( aLinha, { "D2_TOTAL"  , (cAliasAux)->WK_SERVICO, Nil } )//Valor dos ServiÁos			
-AAdd( aLinha, { "D2_TOTAL"  , (cAliasAux)->WK_BASEISS, Nil } )  //Valor dos ServiÁos			
+//AAdd( aLinha, { "D2_PRCVEN" , (cAliasAux)->WK_SERVICO, Nil } )//Valor dos Servi√ßos			
+AAdd( aLinha, { "D2_PRCVEN" , (cAliasAux)->WK_BASEISS, Nil } )  //Valor dos Servi√ßos			
+//AAdd( aLinha, { "D2_DESCON" , (cAliasAux)->WK_DEDUCO , Nil } )  //Valor das Dedu√ß√µes			
+//AAdd( aLinha, { "D2_TOTAL"  , (cAliasAux)->WK_SERVICO, Nil } )//Valor dos Servi√ßos			
+AAdd( aLinha, { "D2_TOTAL"  , (cAliasAux)->WK_BASEISS, Nil } )  //Valor dos Servi√ßos			
 AAdd( aLinha, { "D2_TES"    , (cAliasAux)->WK_TES	 , Nil } )
 //AAdd( aLinha, { "D2_UM"     , "UN" 				 , Nil } )
 AAdd( aLinha, { "D2_ESPECIE", "RPS"   		    	 , Nil } )
-AAdd( aLinha, { "D2_ALIQISS", (cAliasAux)->WK_ALIQISS, Nil } )//AlÌquota do ISS Recebe o valor da coluna ìAlÌquotaî da Planilha 
-AAdd( aLinha, { "D2_BASEISS", (cAliasAux)->WK_BASEISS, Nil } )//Base do ISS Recebe o valor da coluna ìValor dos ServiÁosî da Planilha ( - ) o valor da coluna ìValor das DeduÁıesî da Planilha 
+AAdd( aLinha, { "D2_ALIQISS", (cAliasAux)->WK_ALIQISS, Nil } )//Al√≠quota do ISS Recebe o valor da coluna ‚ÄúAl√≠quota‚Äù da Planilha 
+AAdd( aLinha, { "D2_BASEISS", (cAliasAux)->WK_BASEISS, Nil } )//Base do ISS Recebe o valor da coluna ‚ÄúValor dos Servi√ßos‚Äù da Planilha ( - ) o valor da coluna ‚ÄúValor das Dedu√ß√µes‚Äù da Planilha 
 AAdd( aLinha, { "D2_VALISS" , (cAliasAux)->WK_VALISS , Nil } )//Valor do ISS
 _cConta := Posicione("SB1",1,xFilial("SB1")+(cAliasAux)->WK_CODITEM,"B1_CONTA")
 AAdd( aLinha, { "D2_CONTA", _cConta   		    	 , Nil } )
@@ -692,7 +692,7 @@ CC2->(DBSETORDER(1))
 SA1->(DBSETORDER(1))
 
 aAdd( _aCliente , { "A1_FILIAL"	, xFilial("SA1")				, Nil }) // FILIAL
-aAdd( _aCliente , { "A1_NOME"	, AllTrim((cAliasAux)->WK_CPO38), Nil }) // NOME //Raz„o Social do Tomador
+aAdd( _aCliente , { "A1_NOME"	, AllTrim((cAliasAux)->WK_CPO38), Nil }) // NOME //Raz√£o Social do Tomador
 aAdd( _aCliente , { "A1_PESSOA"	, cPes							, Nil }) // PESSOA FISICA OU JURIDICA
 aAdd( _aCliente , { "A1_CGC"	, ALLTRIM((cAliasAux)->WK_CPO35), Nil }) // CGC
 aAdd( _aCliente , { "A1_NREDUZ"	, AllTrim((cAliasAux)->WK_CPO38), Nil }) // NOME REDUZIDO
@@ -700,13 +700,13 @@ aAdd( _aCliente , { "A1_TIPO"	, "F"							, Nil }) // TIPO DE CLIENTE
 aAdd( _aCliente , { "A1_EST"	, AllTrim((cAliasAux)->WK_CPO45), Nil }) // ESTADO - UF do Tomador
 aAdd( _aCliente,  { "A1_COD_MUN", (cAliasAux)->WK_COD_MUN		, Nil }) // COD.MUNICIPIO
 aAdd( _aCliente , { "A1_CEP"	, cCEP							, Nil }) // CEP
-aAdd( _aCliente , { "A1_END"	, cEnd							, Nil }) // ENDERE«O
+aAdd( _aCliente , { "A1_END"	, cEnd							, Nil }) // ENDERE√áO
 aAdd( _aCliente , { "A1_BAIRRO"	, AllTrim((cAliasAux)->WK_CPO43), Nil }) // BAIRRO
-aAdd( _aCliente , { "A1_COMPLEM", AllTrim((cAliasAux)->WK_CPO42), Nil }) // Complemento do EndereÁo do Tomador
+aAdd( _aCliente , { "A1_COMPLEM", AllTrim((cAliasAux)->WK_CPO42), Nil }) // Complemento do Endere√ßo do Tomador
 aAdd( _aCliente , { "A1_PAIS"	, "105"							, Nil }) // PAIS
 aAdd( _aCliente , { "A1_CODPAIS", "01058"						, Nil }) // PAIS BACEN
-aAdd( _aCliente , { "A1_INSCR"	, ""							, Nil }) // INSCRICAO ESTADUAL InscriÁ„o Estadual do Tomador
-aAdd( _aCliente , { "A1_INSCRM"	, ""							, Nil }) // InscriÁ„o Municipal do Tomador
+aAdd( _aCliente , { "A1_INSCR"	, ""							, Nil }) // INSCRICAO ESTADUAL Inscri√ß√£o Estadual do Tomador
+aAdd( _aCliente , { "A1_INSCRM"	, ""							, Nil }) // Inscri√ß√£o Municipal do Tomador
 aAdd( _aCliente , { "A1_NATUREZ", cNat							, Nil }) // NATUREZA
 aAdd( _aCliente , { "A1_EMAIL"	, AllTrim((cAliasAux)->WK_CPO47), Nil }) // EMAIL - Email do Tomador
 
@@ -732,9 +732,9 @@ IF SA1->(FIELDPOS("A1_I_CMUNC")) <> 0
    AADD( _aCliente , { "A1_VENCLC"	, _dLimite						, Nil }) // DATA DE VENCIMENTO DO LIMITE
    _cCContabil := "1102069998"
    AADD( _aCliente , { "A1_CONTA"	, _cCContabil		 			, Nil }) // Conta Contabil
-   AADD( _aCliente , { "A1_COND"		, "001"		  				, Nil }) // CONDICAO DE PAGTO INCLUS√O 
+   AADD( _aCliente , { "A1_COND"		, "001"		  				, Nil }) // CONDICAO DE PAGTO INCLUS√ÉO 
    AADD( _aCliente , { "A1_CONTRIB"	, "2"					   		, Nil }) // Contribuinte do ICMS
-   AADD( _aCliente , { "A1_CLIFUN"	, "1"							, Nil }) // Funcion·rio
+   AADD( _aCliente , { "A1_CLIFUN"	, "1"							, Nil }) // Funcion√°rio
 ENDIF
 
 Return( _aCliente )
@@ -743,63 +743,63 @@ Return( _aCliente )
 Static Function MFISLimpa(cTexto)//AWF - 27/04/2018 - Tira os caracteres "estranos"
 *--------------------------------------------------------------------------------------------*
    cTexto:=UPPER(ALLTRIM(cTexto))
-   cTexto:=StrTran(cTexto,"√?","E")
-   cTexto:=StrTran(cTexto,"√^","E")
+   cTexto:=StrTran(cTexto,"√É?","E")
+   cTexto:=StrTran(cTexto,"√É^","E")
    cTexto:=StrTran(cTexto,"^","")
-   cTexto:=StrTran(cTexto,"·","a")
-   cTexto:=StrTran(cTexto,"¡","A")
-   cTexto:=StrTran(cTexto,"‡","a")
-   cTexto:=StrTran(cTexto,"¿","A")
-   cTexto:=StrTran(cTexto,"„","a")
-   cTexto:=StrTran(cTexto,"√","A")
-   cTexto:=StrTran(cTexto,"‚","a")
-   cTexto:=StrTran(cTexto,"¬","A")
-   cTexto:=StrTran(cTexto,"‰","a")
-   cTexto:=StrTran(cTexto,"ƒ","A")
-   cTexto:=StrTran(cTexto,"È","e")
-   cTexto:=StrTran(cTexto,"…","E")
-   cTexto:=StrTran(cTexto,"Î","e")
-   cTexto:=StrTran(cTexto,"À","E")
-   cTexto:=StrTran(cTexto,"Í","e")
-   cTexto:=StrTran(cTexto," ","E")
-   cTexto:=StrTran(cTexto,"Ì","i")
-   cTexto:=StrTran(cTexto,"Õ","I")
-   cTexto:=StrTran(cTexto,"Ô","i")
-   cTexto:=StrTran(cTexto,"œ","I")
-   cTexto:=StrTran(cTexto,"Ó","i")
-   cTexto:=StrTran(cTexto,"Œ","I")
-   cTexto:=StrTran(cTexto,"˝","y")
-   cTexto:=StrTran(cTexto,"›","y")
-   cTexto:=StrTran(cTexto,"ˇ","y")
-   cTexto:=StrTran(cTexto,"Û","o")
-   cTexto:=StrTran(cTexto,"”","O")
-   cTexto:=StrTran(cTexto,"ı","o")
-   cTexto:=StrTran(cTexto,"’","O")
-   cTexto:=StrTran(cTexto,"ˆ","o")
-   cTexto:=StrTran(cTexto,"÷","O")
-   cTexto:=StrTran(cTexto,"Ù","o")
-   cTexto:=StrTran(cTexto,"‘","O")
-   cTexto:=StrTran(cTexto,"Ú","o")
-   cTexto:=StrTran(cTexto,"“","O")
-   cTexto:=StrTran(cTexto,"˙","u")
-   cTexto:=StrTran(cTexto,"⁄","U")
-   cTexto:=StrTran(cTexto,"˘","u")
-   cTexto:=StrTran(cTexto,"Ÿ","U")
-   cTexto:=StrTran(cTexto,"¸","u")
-   cTexto:=StrTran(cTexto,"‹","U")
-   cTexto:=StrTran(cTexto,"Á","c")
-   cTexto:=StrTran(cTexto,"«","C")
-   cTexto:=StrTran(cTexto,"∫","o")
-   cTexto:=StrTran(cTexto,"∞","o")
-   cTexto:=StrTran(cTexto,"™","a")
-   cTexto:=StrTran(cTexto,"Ò","n")
-   cTexto:=StrTran(cTexto,"—","N")
-   cTexto:=StrTran(cTexto,"ß","S")
+   cTexto:=StrTran(cTexto,"√°","a")
+   cTexto:=StrTran(cTexto,"√Å","A")
+   cTexto:=StrTran(cTexto,"√†","a")
+   cTexto:=StrTran(cTexto,"√Ä","A")
+   cTexto:=StrTran(cTexto,"√£","a")
+   cTexto:=StrTran(cTexto,"√É","A")
+   cTexto:=StrTran(cTexto,"√¢","a")
+   cTexto:=StrTran(cTexto,"√Ç","A")
+   cTexto:=StrTran(cTexto,"√§","a")
+   cTexto:=StrTran(cTexto,"√Ñ","A")
+   cTexto:=StrTran(cTexto,"√©","e")
+   cTexto:=StrTran(cTexto,"√â","E")
+   cTexto:=StrTran(cTexto,"√´","e")
+   cTexto:=StrTran(cTexto,"√ã","E")
+   cTexto:=StrTran(cTexto,"√™","e")
+   cTexto:=StrTran(cTexto,"√ä","E")
+   cTexto:=StrTran(cTexto,"√≠","i")
+   cTexto:=StrTran(cTexto,"√ç","I")
+   cTexto:=StrTran(cTexto,"√Ø","i")
+   cTexto:=StrTran(cTexto,"√è","I")
+   cTexto:=StrTran(cTexto,"√Æ","i")
+   cTexto:=StrTran(cTexto,"√é","I")
+   cTexto:=StrTran(cTexto,"√Ω","y")
+   cTexto:=StrTran(cTexto,"√ù","y")
+   cTexto:=StrTran(cTexto,"√ø","y")
+   cTexto:=StrTran(cTexto,"√≥","o")
+   cTexto:=StrTran(cTexto,"√ì","O")
+   cTexto:=StrTran(cTexto,"√µ","o")
+   cTexto:=StrTran(cTexto,"√ï","O")
+   cTexto:=StrTran(cTexto,"√∂","o")
+   cTexto:=StrTran(cTexto,"√ñ","O")
+   cTexto:=StrTran(cTexto,"√¥","o")
+   cTexto:=StrTran(cTexto,"√î","O")
+   cTexto:=StrTran(cTexto,"√≤","o")
+   cTexto:=StrTran(cTexto,"√í","O")
+   cTexto:=StrTran(cTexto,"√∫","u")
+   cTexto:=StrTran(cTexto,"√ö","U")
+   cTexto:=StrTran(cTexto,"√π","u")
+   cTexto:=StrTran(cTexto,"√ô","U")
+   cTexto:=StrTran(cTexto,"√º","u")
+   cTexto:=StrTran(cTexto,"√ú","U")
+   cTexto:=StrTran(cTexto,"√ß","c")
+   cTexto:=StrTran(cTexto,"√á","C")
+   cTexto:=StrTran(cTexto,"¬∫","o")
+   cTexto:=StrTran(cTexto,"¬∞","o")
+   cTexto:=StrTran(cTexto,"¬™","a")
+   cTexto:=StrTran(cTexto,"√±","n")
+   cTexto:=StrTran(cTexto,"√ë","N")
+   cTexto:=StrTran(cTexto,"¬ß","S")
    cTexto:=StrTran(cTexto,"o","o")
-   cTexto:=StrTran(cTexto,"µ","u")
+   cTexto:=StrTran(cTexto,"¬µ","u")
    cTexto:=StrTran(cTexto,"&","e") 
-   cTexto:=StrTran(cTexto,"°","i")
-   cTexto:=StrTran(cTexto,"◊","x")
+   cTexto:=StrTran(cTexto,"¬°","i")
+   cTexto:=StrTran(cTexto,"√ó","x")
 Return cTexto
 
 *===============================================================================================================================*
@@ -808,7 +808,7 @@ USER FUNCTION MFISMUN()
 LOCAL lREt:=.T.
 PRIVATE M->A1_EST:=""
 
-//IF !oMarkBRW:IsMark() //Testa pq do duplo clique ele chama essa funÁ„o 2 veses OR bot„o Altertar
+//IF !oMarkBRW:IsMark() //Testa pq do duplo clique ele chama essa fun√ß√£o 2 veses OR bot√£o Altertar
 	
 //	IF (cAliasAux)->WKSTATUS = "1"
 		IF EMPTY((cAliasAux)->WK_CPO45)
